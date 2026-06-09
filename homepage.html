@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thy-me — Instant Physical Postcards</title>
+    <style>
+        :root {
+            --primary: #16a085;
+            --dark: #2c3e50;
+            --light: #f4f6f8;
+            --accent: #e6fffa;
+            --text: #2d3748;
+            --text-muted: #718096;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 30px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(180deg, #ffffff 0%, var(--light) 100%);
+        }
+
+        .hero-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .hero-grid {
+                flex-direction: row;
+                align-items: center;
+            }
+            .hero-text {
+                flex: 1;
+            }
+            .hero-mockup {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            max-width: 500px;
+        }
+
+        /* Mock App UI Elements */
+        .postcard-preview {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 420px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .preview-canvas {
+            aspect-ratio: 3/2;
+            background-color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            position: relative;
+            font-weight: 500;
+        }
+
+        .preview-canvas::after {
+            content: 'Locked 3:2 Viewport';
+            font-size: 0.9rem;
+            background: rgba(44, 62, 80, 0.8);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .preview-meta {
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #117a65;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 50px;
+            letter-spacing: -0.5px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .feature-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #edf2f7;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: var(--accent);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .steps-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .step h4 {
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: #a0aec0;
+            padding: 40px 0;
+            font-size: 0.9rem;
+            border-top: 5px solid var(--primary);
+        }
+
+        footer .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            footer .container {
+                flex-direction: row;
+            }
+        }
+
+        .footer-brand h2 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">Thy-<span>me</span></div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <h1>Real Postcards.<br>Mailed Instantly.</h1>
+                    <p class="tagline">Snap a photo using our locked framework layout, input a delivery address, and dispatch a physical premium postcard directly to any UK letterbox.</p>
+                    <span class="btn">Coming Soon to Google Play</span>
+                </div>
+                <div class="hero-mockup">
+                    <div class="postcard-preview">
+                        <div class="preview-canvas"></div>
+                        <div class="preview-meta">
+                            <div style="height: 10px; background: #e2e8f0; width: 40%; margin-bottom: 8px; border-radius: 4px;"></div>
+                            <div style="height: 10px; background: #edf2f7; width: 85%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Built Around Zero Friction</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Account-Free Setup</h3>
+                    <p>No registration screens, no verification delays, and no mandatory passwords. Open the application and immediately execute your print draft layout safely.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Locked 3:2 Canvas</h3>
+                    <p>Our viewfinder natively forces a landscape printing frame profile. What you adjust on your smart screen translates flawlessly to cardstock with zero clipping.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Local-First Privacy</h3>
+                    <p>Your directory of addresses and captured image buffers stay right inside your phone's sandbox data system until the absolute millisecond you press checkout.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Capture</h4>
+                    <p>Take a picture inside our aspect guide or choose a gallery file.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Write</h4>
+                    <p>Flip the card visually to write a brief dynamic message payload.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Address</h4>
+                    <p>Drop in the recipient's UK shipping data details smoothly.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Dispatch</h4>
+                    <p>Tap check out. Your card prints at 300 DPI and enters the Royal Mail flow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-brand">
+                <h2>Thy-me</h2>
+                <p>&copy; 2026 LexsFolks. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <p style="font-size: 0.85rem; color: #718096; display: inline-block;">Fulfillment via Royal Mail partner network</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
